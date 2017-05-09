@@ -1,0 +1,196 @@
+* {
+    box-sizing: border-box;
+}
+.side{
+    height: 100vh;
+}
+#map {
+    height: calc(100vh - 42px);
+}
+
+
+html,
+      body {
+        font-family: 'Love Ya Like A Sister', cursive;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+          background-color: #fff;
+      }
+#rohini{
+              margin-left: 25%;
+          }
+.header {
+     background-color: #FCB410;
+    width: 50%;
+    height: 40px;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+    font-size: 30px;
+    margin-top: 2%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#container {
+        height: 70%;
+        position: relative;
+            
+        
+      }
+.form-control{
+    background-color:  rgba(93, 57, 57, 0.72);
+    color:#fff;
+}
+.container {
+    margin-left:0px;
+}
+ input {
+        font-size: 12px;
+      }
+      h1 {
+        color: whitesmoke;
+        font-size: 22px;
+        margin: 0 0 10px 0;
+        text-align: center;
+      }
+          .myButton {
+        background-color: #ffffff;
+    -moz-border-radius: 28px;
+    -webkit-border-radius: 28px;
+    border-radius: 28px;
+    border: 5px double #000000;
+    display: inline-block;
+    cursor: pointer;
+    color: #420542;
+    font-family: Verdana;
+    font-size: 16px;
+    font-weight: bold;
+    padding: -1px 12px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #ffffff;
+}
+.myButton:hover {
+	background-color:#ffeb0a;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+      }
+      hr {
+        background: #D0D7D9;
+        height: 1px;
+        margin: 20px 0 20px 0;
+        border: none;
+      }
+#options-box {
+        background: #E74C3C;
+        border: 1px solid #999;
+        border-radius: 25px;
+        /*height: 70vh;*/
+        line-height: 35px;
+        padding: 10px 10px 30px 10px;
+        text-align: left;
+        width: 60vw;
+        margin: 3vh auto;
+      }
+#pano {
+        width: 200px;
+        height: 200px;
+      }
+          .list
+          {
+              color:#CDCBA6;
+          }
+a{
+    color:aliceblue;
+}
+        #search-within-time-text {
+            width: 75%;
+    border-radius: 15px;
+    border-color: black;
+            border-bottom: 5px double black;
+      }
+      .text {
+        font-size: 22px;  
+        color: whitesmoke;
+        margin: 0 0 10px 0;
+        text-align: left;
+      }
+      #toggle-drawing {
+        width: 36%;
+        margin: 0 35%;
+      }
+          ul{
+            margin-top: 4vh;
+            margin-bottom: -5px;
+            background-color: #bf3e37;
+          }
+  
+.sidenav {
+    height: 100%;
+    width: 100vw;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(5, 17, 27, 0.94);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 5px;
+}
+
+.sidenav li {
+    padding: 8px 8px 8px 168px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav li:hover, .offcanvas li:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav li {font-size: 18px;}
+}
+
+@media screen and (max-height: 450px) {
+  .header{
+        margin-top: 15%;
+    }
+}
+@media screen and (max-width: 767px) {
+    .side{
+      height: 70vh;  
+    } 
+    .sidenav li{
+        font-size: 20px; 
+        padding: 8px 8px 8px 32px;
+    }
+    #options-box{
+        width: 90vw;
+        line-height: 23px;
+    }
+    ul{
+        margin-top: 0vh;
+    }
+    
+    .sidenav{
+        background-color:  rgb(31, 122, 197);
+    }
+   
+}

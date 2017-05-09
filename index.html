@@ -1,0 +1,277 @@
+<html>
+
+<head>
+    <title>My Neighbourhood</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="knockout/knockout.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 header" id="rohini">
+                            <h1>Rohini</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="" id="options-box">
+                            <form class="navbar-form navbar-left">
+                                <div class="form-group">
+                                    <input id="khoj" type="text" class="form-control" placeholder="Search" data-bind="value: inputText, valueUpdate: 'afterkeydown', event: {keyup: filtersearch}">
+                                </div>
+                            </form>
+
+                            <ul class="ulist" data-bind="foreach:markers">
+                                <li class="list" data-bind="visible:show, event:{click:$parent.selectAll}">
+                                    <a data-bind="text:title"></a>
+                                </li>
+                            </ul>
+                            <hr>
+                            <span class="text"> <h1>Draw a shape to search within </h1></span>
+                            <input id="toggle-drawing" type="button" value="Drawing Tools" class="myButton">
+
+                            <hr>
+
+                            <div>
+                                <span class="text">  WITHIN</span>
+                                <select id="max-duration">
+                                    <option value="10">10 min</option>
+                                    <option value="15">15 min</option>
+                                    <option value="30">30 min</option>
+                                    <option value="60">1 hour</option>
+                                </select>
+                                <span class="text">OF</span>
+                                <select id="mode">
+                                    <option value="DRIVING">drive</option>
+                                    <option value="WALKING">walk</option>
+                                    <option value="BICYCLING">bike</option>
+                                    <option value="TRANSIT">transit ride</option>
+                                </select>
+
+                                <input id="search-within-time-text" type="text" placeholder="WHERE YOU AT?">
+                                <input id="search-within-time" type="button" value="GO" class="myButton">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776 Open</span>
+            <div class="col-xs-12" style="background-color:#fff;">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script>
+        var map;
+        // Create a new blank array for all the listing markers.
+
+        function initMap() {
+            //styles for map
+            var styles = [
+
+                    {
+                        "featureType": "water",
+                        "stylers": [{
+                            "color": "#19a0d8"
+                        }]
+                    }, {
+                        "featureType": "administrative",
+                        "elementType": "labels.text.stroke",
+                        "stylers": [{
+                            "color": "#ffffff"
+                        }, {
+                            "weight": 6
+                        }]
+                    }, {
+                        "featureType": "administrative",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{
+                            "color": "#e85113"
+                        }]
+                    }, {
+                        "featureType": "road.highway",
+                        "elementType": "geometry.stroke",
+                        "stylers": [{
+                            "color": "#efe9e4"
+                        }, {
+                            "lightness": -40
+                        }]
+                    }, {
+                        "featureType": "road.arterial",
+                        "elementType": "geometry.stroke",
+                        "stylers": [{
+                            "color": "#efe9e4"
+                        }, {
+                            "lightness": -20
+                        }]
+                    }, {
+                        "featureType": "road",
+                        "elementType": "labels.text.stroke",
+                        "stylers": [{
+                            "lightness": 100
+                        }]
+                    }, {
+                        "featureType": "road",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{
+                            "lightness": -100
+                        }]
+                    }, {
+                        "featureType": "road.highway",
+                        "elementType": "labels.icon"
+                    }, {
+                        "featureType": "landscape",
+                        "elementType": "labels",
+                        "stylers": [{
+                            "visibility": "off"
+                        }]
+                    }, {
+                        "featureType": "landscape",
+                        "stylers": [{
+                            "lightness": 20
+                        }, {
+                            "color": "#efe9e4"
+                        }]
+                    }, {
+                        "featureType": "landscape.man_made",
+                        "stylers": [{
+                            "visibility": "off"
+                        }]
+                    }, {
+                        "featureType": "water",
+                        "elementType": "labels.text.stroke",
+                        "stylers": [{
+                            "lightness": 100
+                        }]
+                    }, {
+                        "featureType": "water",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{
+                            "lightness": -100
+                        }]
+                    }, {
+                        "featureType": "poi",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{
+                            "hue": "#11ff00"
+                        }]
+                    }, {
+                        "featureType": "poi",
+                        "elementType": "labels.text.stroke",
+                        "stylers": [{
+                            "lightness": 100
+                        }]
+                    }, {
+                        "featureType": "poi",
+                        "elementType": "labels.icon",
+                        "stylers": [{
+                            "hue": "#4cff00"
+                        }, {
+                            "saturation": 58
+                        }]
+                    }, {
+                        "featureType": "poi",
+                        "elementType": "geometry",
+                        "stylers": [{
+                            "visibility": "on"
+                        }, {
+                            "color": "#f0e4d3"
+                        }]
+                    }, {
+                        "featureType": "road.highway",
+                        "elementType": "geometry.fill",
+                        "stylers": [{
+                            "color": "#efe9e4"
+                        }, {
+                            "lightness": -25
+                        }]
+                    }, {
+                        "featureType": "road.arterial",
+                        "elementType": "geometry.fill",
+                        "stylers": [{
+                            "color": "#efe9e4"
+                        }, {
+                            "lightness": -10
+                        }]
+                    }, {
+                        "featureType": "poi",
+                        "elementType": "labels",
+                        "stylers": [{
+                            "visibility": "simplified"
+                        }]
+                    }
+
+                ]
+                // Constructor creates a new map - only center and zoom are required.
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 28.737324,
+                    lng: 77.090981
+                },
+                zoom: 18,
+                //added custom made map
+                styles: styles,
+                //do not switch between satallite and different modes
+                mapTypeControl: false
+            });
+            //applied binding using knock out javascript
+            ko.applyBindings(new viewmodel());
+        }
+
+        // This function will loop through the listings and hide them all.
+        function hideListings() {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+        }
+
+        // This function is in response to the user selecting "show route" on one
+        // of the markers within the calculated distance. This will display the route
+        // on the map.
+        function displayDirections(origin) {
+            hideListings();
+            var directionsService = new google.maps.DirectionsService;
+            // Get the destination address from the user entered value.
+            var destinationAddress =
+                document.getElementById('search-within-time-text').value;
+            // Get mode again from the user entered value.
+            var mode = document.getElementById('mode').value;
+            directionsService.route({
+                // The origin is the passed in marker's position.
+                origin: origin,
+                // The destination is user entered address.
+                destination: destinationAddress,
+                travelMode: google.maps.TravelMode[mode]
+            }, function(response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    var directionsDisplay = new google.maps.DirectionsRenderer({
+                        map: map,
+                        directions: response,
+                        draggable: true,
+                        polylineOptions: {
+                            strokeColor: 'blue'
+                        }
+                    });
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+
+        }
+    </script>
+    //api for google maps
+    <script async src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry&key=AIzaSyC811SHvivYn92ET1dQ6j8O6MlL1C3pBMk&v=3&callback=initMap">
+    </script>
+</body>
+
+</html>
